@@ -17,8 +17,8 @@ class FIFOCache(BaseCaching):
         """ Add an item in the cache
 
         Args:
-            key (_type_): _description_
-            item (_type_): _description_
+            key (_type_): the key for the cache
+            item (_type_): the item for the cache
         """
         if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
