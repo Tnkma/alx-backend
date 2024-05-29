@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Flask app that renders an index page"""
-from flask_babel import Babel
 from flask import Flask, render_template, request
-
+from flask_babel import Babel
 
 class Config:
     """Config class for our application
@@ -22,7 +21,7 @@ babel = Babel(app)
 def index() -> str:
     """render the index page
     """
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 @babel.localeselector
 def get_locale() -> str:
