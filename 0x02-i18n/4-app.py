@@ -31,6 +31,8 @@ def get_locale() -> str:
 
     Returns:
         str: the best matching language for the user
+        We can say 'locale = request.args.get('locale')' to get the locale
+        but its also good i learned to use lambda function to get the locale
     """
     queries = request.query_string.decode('utf-8').split('&')
     query_table = dict(map(
