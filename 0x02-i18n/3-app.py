@@ -25,7 +25,7 @@ def index() -> str:
     return render_template('3-index.html')
 
 
-@babel.localeselector
+# @babel.localeselector
 def get_locale() -> str:
     """gets the best matching language for the user
 
@@ -33,6 +33,9 @@ def get_locale() -> str:
         str: the best matching language for the user
     """
     return request.accept_Languages.best_match(app.config['LANGUAGES'])
+
+
+babel.init_app(app, get_locale)
 
 
 if __name__ == "__main__":
