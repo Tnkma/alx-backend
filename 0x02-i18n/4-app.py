@@ -15,14 +15,11 @@ class Config:
 # Flask app initialization
 app = Flask(__name__)
 app.config.from_object(Config)
+app.secret_key = 'your_secret_key_here'
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+app.config['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
 babel = Babel(app)
-
-
-@app.route('/')
-def index() -> str:
-    """render the index page
-    """
-    return render_template('4-index.html')
 
 
 # @babel.localeselector
@@ -42,16 +39,29 @@ def get_locale() -> str:
         # if query_table['locale'] in app.config["LANGUAGES"]:
             # return query_table['locale']
     """
+    # Check if 'locale' is in the query parameters and if it is a valid lang
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
-        session[locale] = locale
+        session['locale'] = locale
         return locale
+
+    # Check if 'locale' is in the session
     if 'locale' in session:
         return session['locale']
-    return request.accept_Languages.best_match(app.config['LANGUAGES'])
+
+    # Fall back to the best match from the request's Accept-Language header
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-babel.init_app(app, get_locale)
+babel.init_app(app, locale_selector=get_locale)
+
+
+@app.route('/')
+def index() -> str:
+    """render the index page
+    """
+    locale = get_locale()
+    return render_template('4-index.html', locale=locale)
 
 
 if __name__ == "__main__":
