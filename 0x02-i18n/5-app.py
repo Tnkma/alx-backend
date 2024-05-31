@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Flask app that renders an index page"""
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, g
 from flask_babel import Babel
+from typing import Union, Dict
 
 
 class Config:
@@ -20,6 +21,14 @@ app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 app.config['BABEL_DEFAULT_TIMEZONE'] = 'UTC'
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
 babel = Babel(app)
+
+
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
 
 
 # @babel.localeselector
@@ -50,12 +59,32 @@ def get_locale() -> str:
 babel.init_app(app, locale_selector=get_locale)
 
 
+def get_user() -> Union[Dict, None]:
+    """get the user from the session for login
+    """
+    # we get the user_id from the query string
+    user_id = request.args.get('login_as')
+    # if user exist, then
+    if user_id:
+        # use the user_id to login the user
+        returned_user_id = users.get(int(user_id))
+        # print(returned_user_id)
+        return returned_user_id
+    return None
+
+
+@app.before_request
+def before_request():
+    user = get_user()
+    if user:
+        g.user = user
+
+
 @app.route('/')
 def index() -> str:
     """render the index page
     """
-    locale = get_locale()
-    return render_template('4-index.html', locale=locale)
+    return render_template('5-index.html')
 
 
 if __name__ == "__main__":
