@@ -28,6 +28,7 @@ users = {
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
     3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+    5: {"name": "Godswill", "locale": "en", "timezone": "Africa/Lagos"}
 }
 
 
