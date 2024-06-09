@@ -75,6 +75,8 @@ def get_user() -> Union[Dict, None]:
 
 @app.before_request
 def before_request():
+    """get the user from the session for each request
+    """
     user = get_user()
     if user:
         g.user = user
