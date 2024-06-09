@@ -32,7 +32,7 @@ users = {
 }
 
 
-# @babel.localeselector
+@babel.localeselector
 def get_locale() -> str:
     """gets the best matching language for the user
 
@@ -57,7 +57,7 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-babel.init_app(app, locale_selector=get_locale)
+# babel.init_app(app, locale_selector=get_locale)
 
 
 def get_user() -> Union[Dict, None]:
