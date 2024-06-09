@@ -48,7 +48,7 @@ def get_locale() -> str:
         # if query_table['locale'] in app.config["LANGUAGES"]:
             # return query_table['locale']
     """
-   # Check if 'locale' is in the query parameters and if it is a valid language
+    # Checks if 'locale' is in the query param and if it is a valid language
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
         return locale
@@ -86,6 +86,8 @@ def get_user() -> Union[Dict, None]:
 
 @app.before_request
 def before_request():
+    """get the user from the session for each request
+    """
     user = get_user()
     if user:
         g.user = user
