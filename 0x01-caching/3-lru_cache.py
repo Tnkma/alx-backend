@@ -2,6 +2,7 @@
 """ LRU cache module """
 from base_caching import BaseCaching
 
+
 class LRUCache(BaseCaching):
     """
     FIFOCache defines a FIFO caching system
@@ -35,5 +36,4 @@ class LRUCache(BaseCaching):
         if key is not None and key in self.cache_data.keys():
             del self.usage[self.usage.index(key)]
             self.usage.append(key)
-            return self.cache_data[key]
-        return None
+            return self.cache_d
