@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-""" LRU cache module """
+#!/usr/bin/env python3
+""" Base model"""
 from base_caching import BaseCaching
 
 
@@ -8,14 +8,12 @@ class LRUCache(BaseCaching):
     FIFOCache defines a FIFO caching system
     """
     def __init__(self):
-        """
-        Initialize the class with the parent's init method
-        """
+        """ Initiate the class"""
         super().__init__()
         self.usage = []
 
     def put(self, key, item):
-        """ Cache a key-value pair and put the key to redis"""
+        """Cache a key-value pair"""
         if key is None or item is None:
             pass
         else:
@@ -36,4 +34,5 @@ class LRUCache(BaseCaching):
         if key is not None and key in self.cache_data.keys():
             del self.usage[self.usage.index(key)]
             self.usage.append(key)
-            return self.cache_d
+            return self.cache_data[key]
+        return None
